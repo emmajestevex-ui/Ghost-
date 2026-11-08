@@ -310,11 +310,11 @@ private struct GhostFilePanel: View {
 
     var body: some View {
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                        Color.white,
-                        Color(red: 0.965, green: 0.962, blue: 0.952)
+            .fill(
+                LinearGradient(
+                    colors: [
+                        Color(red: 0.13, green: 0.12, blue: 0.125),
+                        Color(red: 0.07, green: 0.065, blue: 0.07)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
@@ -322,20 +322,8 @@ private struct GhostFilePanel: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                Color.black.opacity(0.16),
-                                Color.black.opacity(0.06),
-                                .white.opacity(0.30)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
-                    )
+                    .stroke(AppTheme.accent.opacity(0.18), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.07), radius: 14, x: 0, y: 8)
     }
 }
 
