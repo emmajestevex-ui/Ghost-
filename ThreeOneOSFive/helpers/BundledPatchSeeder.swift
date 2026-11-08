@@ -116,7 +116,13 @@ enum BundledPatchSeeder {
 
     private static let payloadDirectoryName = "BundledPatchPayloads"
     private static let seedDate = Date(timeIntervalSince1970: 0)
-    private static let remotePatchCategories: Set<String> = ["ghost-patches", "ghost-shaders", "ghost-configs", "ghost-packages"]
+    private static let remotePatchCategories: Set<String> = [
+        "ghost-files",
+        "ghost-patches",
+        "ghost-shaders",
+        "ghost-configs",
+        "ghost-packages"
+    ]
     private static let assetIndexerProjectID = UUID(uuidString: "A55E0001-3105-4A55-9001-00000000BEEF")!
     private static let assetIndexerVariantKey = "ghost.assetIndexerVariant"
     private static let remoteAssetIndexerVariantPrefix = "ghost.remoteAssetIndexerVariant."

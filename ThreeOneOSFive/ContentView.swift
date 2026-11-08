@@ -347,8 +347,8 @@ private struct GhostPanelBackground: View {
             .fill(
                 LinearGradient(
                     colors: [
-                        Color.white,
-                        Color.white
+                        Color(red: 0.13, green: 0.12, blue: 0.125),
+                        Color(red: 0.07, green: 0.065, blue: 0.07)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
@@ -356,16 +356,8 @@ private struct GhostPanelBackground: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .stroke(
-                        LinearGradient(
-                            colors: [Color.black.opacity(0.18), Color.black.opacity(0.07), Color.white.opacity(0.30)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
-                    )
+                    .stroke(AppTheme.accent.opacity(0.18), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.08), radius: 18, x: 0, y: 10)
     }
 }
 
