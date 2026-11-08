@@ -4,13 +4,13 @@ enum AppSection: Int, CaseIterable, Identifiable {
     case home
     case files
     case patches
+    case social
     case cleaner
     case wallpapers
     case remoteContent
 
     var id: Int { rawValue }
 }
-
 enum WallpaperFeatureSupportPolicy {
     static func isSupported(major: Int) -> Bool {
         switch major {
@@ -41,7 +41,7 @@ struct FeatureVisibility: Equatable {
     }
 
     var visibleSections: [AppSection] {
-        [.home, .patches, .remoteContent]
+        [.home, .patches, .social]
     }
 
     func isVisible(_ section: AppSection) -> Bool {

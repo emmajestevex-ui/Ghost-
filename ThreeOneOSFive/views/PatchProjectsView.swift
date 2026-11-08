@@ -35,7 +35,7 @@ struct PatchProjectsView: View {
             VStack(spacing: 0) {
                 AppSearchField(
                     text: $searchText,
-                    prompt: "Buscar archivos Ghost",
+                    prompt: "Buscar archivos GHOST X HACKS",
                     clearLabel: language.text("common.clear")
                 )
                 ScrollView {
@@ -66,7 +66,7 @@ struct PatchProjectsView: View {
                 }
             }
             .background(AppTheme.pageBackground.ignoresSafeArea())
-            .navigationTitle("Archivos Ghost")
+            .navigationTitle("Archivos GHOST X HACKS")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if store.isBusy {
@@ -145,7 +145,6 @@ struct PatchProjectsView: View {
         .background(GhostFilePanel())
     }
 }
-
 private struct GhostFilesSectionTitle: View {
     let title: String
 
@@ -156,7 +155,7 @@ private struct GhostFilesSectionTitle: View {
     var body: some View {
         Text(title.uppercased())
             .font(.caption.weight(.bold))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(AppTheme.accentGlow)
             .tracking(1.1)
             .padding(.horizontal, 2)
     }
@@ -169,7 +168,7 @@ private struct PatchListHeader: View {
         HStack(spacing: 14) {
             AppLogo(size: 46)
             VStack(alignment: .leading, spacing: 4) {
-                Text("Centro Ghost")
+                Text("Centro GHOST X HACKS")
                     .font(.title3.weight(.black))
                 Text("Aimbots y archivos privados")
                     .font(.caption)
@@ -181,7 +180,7 @@ private struct PatchListHeader: View {
             VStack(alignment: .trailing, spacing: 2) {
                 Text("\(count)")
                     .font(.title3.weight(.black))
-                    .foregroundColor(AppTheme.accent)
+                    .foregroundColor(AppTheme.accentGlow)
                 Text(count == 1 ? "archivo" : "archivos")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
@@ -189,6 +188,19 @@ private struct PatchListHeader: View {
         }
         .padding(16)
         .background(GhostFilePanel())
+        .overlay(alignment: .bottomLeading) {
+            Capsule()
+                .fill(
+                    LinearGradient(
+                        colors: [AppTheme.accent, AppTheme.accentGlow, AppTheme.mint],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .frame(width: 118, height: 3)
+                .padding(.leading, 16)
+                .padding(.bottom, 10)
+        }
     }
 }
 
@@ -242,6 +254,12 @@ private struct PatchProjectRow: View {
         }
         .padding(14)
         .background(GhostFilePanel(cornerRadius: 18))
+        .overlay(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 2, style: .continuous)
+                .fill(style.tint)
+                .frame(width: 3)
+                .padding(.vertical, 14)
+        }
     }
 }
 
@@ -264,7 +282,7 @@ private struct RemotePatchRow: View {
                         .minimumScaleFactor(0.78)
                     Text("v\(file.version)")
                         .font(.caption2.weight(.bold))
-                        .foregroundColor(AppTheme.accent)
+                        .foregroundColor(AppTheme.accentGlow)
                 }
                 Text(file.localRelativePath)
                     .font(.caption.monospaced())
@@ -276,7 +294,7 @@ private struct RemotePatchRow: View {
             VStack(alignment: .trailing, spacing: 3) {
                 Text("Remoto")
                     .font(.caption2.weight(.bold))
-                    .foregroundColor(AppTheme.accent)
+                    .foregroundColor(AppTheme.accentGlow)
                 Text(file.displaySize)
                     .font(.caption2.monospacedDigit())
                     .foregroundStyle(.secondary)
@@ -292,11 +310,32 @@ private struct GhostFilePanel: View {
 
     var body: some View {
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-            .fill(Color(red: 0.105, green: 0.095, blue: 0.10))
+                .fill(
+                    LinearGradient(
+                        colors: [
+                        Color.white,
+                        Color(red: 0.965, green: 0.962, blue: 0.952)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(AppTheme.accent.opacity(0.14), lineWidth: 1)
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                Color.black.opacity(0.16),
+                                Color.black.opacity(0.06),
+                                .white.opacity(0.30)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
             )
+            .shadow(color: Color.black.opacity(0.07), radius: 14, x: 0, y: 8)
     }
 }
 
@@ -370,86 +409,59 @@ private struct PatchProjectDetailView: View {
     }
 
     var body: some View {
-        List {
+        ScrollView {
             if let project = item?.project {
-                Section {
-                    PatchDetailHeader(project: project, style: detailStyle)
-                }
+                VStack(spacing: 18) {
+                    PatchDetailHero(project: project, style: detailStyle, isApplied: receipt != nil)
 
-                Section {
-                    ForEach(project.allBundleIdentifiers, id: \.self) { bundleID in
-                        Label {
-                            Text(bundleID)
-                                .font(.subheadline.monospaced())
-                        } icon: {
-                            Image(systemName: "app.dashed")
-                                .foregroundColor(detailStyle.tint)
-                        }
-                    }
-                    LabeledContent(language.text("patch.files")) {
-                        Text("\(project.rules.count)")
-                            .fontWeight(.semibold)
-                    }
-                } header: {
-                    Text(language.text("patch.target_bundle"))
-                }
-
-                if BundledPatchSeeder.hasAssetIndexerRule(project) {
-                    Section {
-                        Picker("Asset", selection: assetVariantBinding) {
-                            ForEach(BundledPatchSeeder.AssetIndexerVariant.allCases) { variant in
-                                Text(variant.label).tag(variant)
+                    Link(destination: URL(string: "https://www.tiktok.com/@the_maik3?_r=1&_t=ZS-99vZ2aOwzau")!) {
+                        HStack(spacing: 12) {
+                            AppRowIcon(systemName: "play.rectangle.fill", tint: AppTheme.accentGlow, symbolSize: 18, frameSize: 42)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("TikTok oficial")
+                                    .font(.headline)
+                                    .foregroundStyle(.primary)
+                                Text("@the_maik3")
+                                    .font(.caption.weight(.medium))
+                                    .foregroundStyle(.secondary)
                             }
+                            Spacer()
+                            Image(systemName: "arrow.up.right")
+                                .font(.subheadline.weight(.bold))
+                                .foregroundStyle(AppTheme.accentGlow)
                         }
-                        .pickerStyle(.segmented)
-                    } header: {
-                        Text("Asset Indexer")
-                    } footer: {
-                        Text("PEN usa Free Fire Max. H5 usa Free Fire normal.")
+                        .padding(16)
+                        .background(GhostFilePanel(cornerRadius: 18))
                     }
-                } else if BundledPatchSeeder.canOverrideTargetBundle(project) {
-                    Section {
-                        Picker("App", selection: targetBundleBinding) {
-                            ForEach(BundledPatchSeeder.TargetBundleChoice.allCases) { choice in
-                                Text(choice.label).tag(choice)
-                            }
+
+                    VStack(spacing: 12) {
+                        Button(action: apply) {
+                            PatchActionButtonContent(
+                                title: language.text("patch.apply"),
+                                subtitle: "Activar archivo",
+                                systemImage: "checkmark.shield.fill"
+                            )
                         }
-                        .pickerStyle(.segmented)
-                    } header: {
-                        Text("Target App")
-                    } footer: {
-                        Text("Elige donde se va a escribir este archivo antes de tocar Aplicar.")
-                    }
-                }
-
-                Section {
-                    ForEach(project.rules) { rule in
-                        PatchRuleSummary(rule: rule, style: detailStyle)
-                    }
-                } header: {
-                    Text(language.text("patch.rules"))
-                } footer: {
-                    Text(language.text("patch.client_rules_footer"))
-                }
-
-                Section {
-                    Button(action: apply) {
-                        actionLabel("patch.apply", subtitle: "Escribe el archivo seleccionado", systemImage: "checkmark.shield.fill")
-                    }
-                    .disabled(isWorking)
-
-                    if receipt != nil {
-                        Button(role: .destructive, action: restore) {
-                            actionLabel("patch.restore", subtitle: "Vuelve al archivo original", systemImage: "arrow.uturn.backward.circle")
-                        }
+                        .buttonStyle(PatchPrimaryActionStyle())
                         .disabled(isWorking)
+
+                        Button(role: .destructive, action: restore) {
+                            PatchActionButtonContent(
+                                title: language.text("patch.restore"),
+                                subtitle: "Volver al original",
+                                systemImage: "arrow.uturn.backward.circle"
+                            )
+                        }
+                        .buttonStyle(PatchSecondaryActionStyle(isEnabled: receipt != nil && !isWorking))
+                        .disabled(isWorking || receipt == nil)
                     }
-                } footer: {
-                    Text(language.text("patch.apply_footer"))
                 }
+                .padding(.horizontal, AppTheme.pageInset)
+                .padding(.top, 16)
+                .padding(.bottom, 28)
             }
         }
-        .listStyle(.insetGrouped)
+        .background(AppTheme.pageBackground.ignoresSafeArea())
         .navigationTitle(item?.project?.name ?? language.text("patch.title"))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -462,13 +474,6 @@ private struct PatchProjectDetailView: View {
             if isWorking {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     ProgressView()
-                }
-            } else {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(language.text("patch.edit_name")) {
-                        showNameEditor = true
-                    }
-                    .disabled(item?.project == nil)
                 }
             }
         }
@@ -532,21 +537,6 @@ private struct PatchProjectDetailView: View {
         )
     }
 
-    private func actionLabel(_ key: String, subtitle: String, systemImage: String) -> some View {
-        HStack(spacing: 12) {
-            Image(systemName: systemImage)
-                .font(.system(size: 20, weight: .semibold))
-            VStack(alignment: .leading, spacing: 2) {
-                Text(language.text(key))
-                    .font(.headline)
-                Text(subtitle)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
     private func apply() {
         guard let item, let project = item.project else { return }
         isWorking = true
@@ -605,28 +595,103 @@ private struct PatchProjectDetailView: View {
     }
 }
 
-private struct PatchDetailHeader: View {
+private struct PatchDetailHero: View {
     let project: PatchProject
     let style: PatchVisualStyle
+    let isApplied: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            HStack(spacing: 14) {
+                AppRowIcon(systemName: style.icon, tint: style.tint, symbolSize: 21, frameSize: 48)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(project.name)
+                        .font(.title2.weight(.black))
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.72)
+                    Text("Control privado")
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+            }
+
+            HStack {
+                Label(isApplied ? "Aplicado" : "Listo", systemImage: isApplied ? "checkmark.seal.fill" : "circle.dashed")
+                    .font(.headline.weight(.bold))
+                    .foregroundStyle(isApplied ? AppTheme.mint : AppTheme.accentGlow)
+                Spacer()
+                Text(isApplied ? "ON" : "OK")
+                    .font(.title3.weight(.black))
+                    .foregroundStyle(isApplied ? AppTheme.mint : AppTheme.accentGlow)
+            }
+            .padding(14)
+            .background(Color.white.opacity(0.045), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        }
+        .padding(18)
+        .background(GhostFilePanel())
+    }
+}
+
+private struct PatchActionButtonContent: View {
+    let title: String
+    let subtitle: String
+    let systemImage: String
 
     var body: some View {
         HStack(spacing: 14) {
-            AppRowIcon(systemName: style.icon, tint: style.tint, symbolSize: 20, frameSize: 44)
-            VStack(alignment: .leading, spacing: 4) {
-                Text(project.name)
-                    .font(.title2.weight(.bold))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
-                Text(style.detail)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+            Image(systemName: systemImage)
+                .font(.title3.weight(.bold))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.headline.weight(.black))
+                Text(subtitle)
+                    .font(.caption.weight(.semibold))
+                    .opacity(0.82)
             }
             Spacer()
-            Text(project.rules.count == 1 ? "1 archivo" : "\(project.rules.count) archivos")
-                .font(.caption.weight(.semibold))
-                .foregroundColor(style.tint)
         }
-        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: 60)
+        .padding(.horizontal, 18)
+    }
+}
+
+private struct PatchPrimaryActionStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(.white)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: configuration.isPressed
+                                ? [Color.black.opacity(0.78), Color(red: 0.25, green: 0.25, blue: 0.27).opacity(0.78)]
+                                : [Color.black, Color(red: 0.22, green: 0.22, blue: 0.24)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+            )
+            .scaleEffect(configuration.isPressed ? 0.985 : 1)
+    }
+}
+
+private struct PatchSecondaryActionStyle: ButtonStyle {
+    let isEnabled: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(isEnabled ? AppTheme.accentGlow : .secondary)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(Color.white.opacity(isEnabled ? (configuration.isPressed ? 0.10 : 0.065) : 0.035))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(AppTheme.accentGlow.opacity(isEnabled ? 0.32 : 0.10), lineWidth: 1)
+                    )
+            )
+            .scaleEffect(configuration.isPressed && isEnabled ? 0.985 : 1)
     }
 }
 
@@ -704,17 +769,17 @@ private struct PatchVisualStyle {
 
         if searchable.contains("plist") || searchable.contains("144") {
             icon = "speedometer"
-            tint = Color.green
+            tint = AppTheme.amber
             subtitle = "Preferencias FPS"
             detail = "Preferencias internas"
         } else if searchable.contains("shader") {
             icon = "sparkles"
-            tint = Color(red: 0.26, green: 0.72, blue: 1.0)
+            tint = AppTheme.mint
             subtitle = "Archivo visual"
             detail = "Contenido opcional"
         } else {
-            icon = "shippingbox.fill"
-            tint = AppTheme.accent
+            icon = "cube.transparent.fill"
+            tint = AppTheme.accentGlow
             subtitle = "Archivo de aimbot"
             detail = "Contenido de avatar"
         }
