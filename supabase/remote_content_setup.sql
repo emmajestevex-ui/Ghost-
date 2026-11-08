@@ -21,7 +21,6 @@ as $$
             '2008yashirchavez@gmail.com',
             'emmajestevex@gmail.com',
             'grego23500@gmail.com',
-            'glizzynet9@gmail.com',
             'computaroda5@gmail.com'
         )
         or exists (
@@ -38,7 +37,6 @@ where lower(email) in (
     '2008yashirchavez@gmail.com',
     'emmajestevex@gmail.com',
     'grego23500@gmail.com',
-    'glizzynet9@gmail.com',
     'computaroda5@gmail.com'
 )
 on conflict (user_id) do update

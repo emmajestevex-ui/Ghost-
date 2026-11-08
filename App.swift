@@ -120,7 +120,7 @@ struct ThreeOneOSFiveApp: App {
                         }
                     }
                 } else {
-                    GreegLicenseView(initialMessage: licenseMessage) {
+                    GhostLicenseView(initialMessage: licenseMessage) {
                         licenseValidationPending = false
                         licenseUnlocked = true
                         prepareUnlockedApp()
@@ -287,7 +287,7 @@ private struct LicenseCheckingView: View {
 }
 
 
-private struct GreegLicenseView: View {
+private struct GhostLicenseView: View {
     @State private var key = ""
     @State private var messageText = ""
     @State private var didActivate = false

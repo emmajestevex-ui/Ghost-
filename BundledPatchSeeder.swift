@@ -94,7 +94,7 @@ enum BundledPatchSeeder {
                 PayloadSpec(
                     directory: "Documents/contentcache/Compulsory/ios/gameassetbundles/avatar",
                     filenameCandidates: [
-                        "assetindexer.tio-greeg927394hd"
+                        "assetindexer.tio-ghost927394hd"
                     ],
                     targetFilename: "assetindexer.H5ak1JM1Eck~2FxRcJrEp~2FMzeuqmY~3D"
                 )

@@ -1,5 +1,3 @@
--- ==================== licenses_setup.sql ====================
-
 create extension if not exists pgcrypto with schema extensions;
 
 create table if not exists public.licenses (
@@ -138,7 +136,6 @@ as $$
             '2008yashirchavez@gmail.com',
             'emmajestevex@gmail.com',
             'grego23500@gmail.com',
-            'glizzynet9@gmail.com',
             'computaroda5@gmail.com'
         )
         or exists (
@@ -155,7 +152,6 @@ where lower(email) in (
     '2008yashirchavez@gmail.com',
     'emmajestevex@gmail.com',
     'grego23500@gmail.com',
-    'glizzynet9@gmail.com',
     'computaroda5@gmail.com'
 )
 on conflict (user_id) do update
@@ -659,9 +655,6 @@ grant execute on function public.admin_set_license_expiration(text, timestamptz)
 grant execute on function public.admin_delete_license(text) to authenticated;
 
 
-
--- ==================== activate_license.sql ====================
-
 -- For a fresh install run supabase/licenses_setup.sql first. This file only
 -- refreshes the client RPC functions after the secure key tables exist.
 
@@ -822,9 +815,6 @@ grant execute on function public.activate_license(text, text) to anon, authentic
 grant execute on function public.check_license(text, text) to anon, authenticated;
 
 
-
--- ==================== remote_content_setup.sql ====================
-
 create extension if not exists pgcrypto with schema extensions;
 
 create table if not exists public.license_admins (
@@ -848,7 +838,6 @@ as $$
             '2008yashirchavez@gmail.com',
             'emmajestevex@gmail.com',
             'grego23500@gmail.com',
-            'glizzynet9@gmail.com',
             'computaroda5@gmail.com'
         )
         or exists (
@@ -865,7 +854,6 @@ where lower(email) in (
     '2008yashirchavez@gmail.com',
     'emmajestevex@gmail.com',
     'grego23500@gmail.com',
-    'glizzynet9@gmail.com',
     'computaroda5@gmail.com'
 )
 on conflict (user_id) do update
@@ -1617,9 +1605,6 @@ grant execute on function public.admin_publish_remote_content() to authenticated
 grant execute on function public.get_remote_content_manifest(text, text) to anon, authenticated;
 
 
-
--- ==================== admin_emails_setup.sql ====================
-
 create table if not exists public.license_admins (
     user_id uuid primary key references auth.users(id) on delete cascade,
     role text not null default 'founder',
@@ -1640,7 +1625,6 @@ as $$
             '2008yashirchavez@gmail.com',
             'emmajestevex@gmail.com',
             'grego23500@gmail.com',
-            'glizzynet9@gmail.com',
             'computaroda5@gmail.com'
         )
         or exists (
@@ -1657,7 +1641,6 @@ where lower(email) in (
     '2008yashirchavez@gmail.com',
     'emmajestevex@gmail.com',
     'grego23500@gmail.com',
-    'glizzynet9@gmail.com',
     'computaroda5@gmail.com'
 )
 on conflict (user_id) do update
@@ -1665,9 +1648,6 @@ set role = excluded.role;
 
 grant execute on function public.is_license_admin() to authenticated;
 
-
-
--- ==================== allow_duplicate_remote_patches.sql ====================
 
 drop index if exists public.remote_content_files_target_path_idx;
 drop index if exists public.remote_content_files_target_bundle_path_idx;
@@ -1833,5 +1813,4 @@ $$;
 
 revoke all on function public.admin_upsert_remote_content_file(text, text, text, text, text, text, text, bigint, text, text, text, uuid, boolean) from public;
 grant execute on function public.admin_upsert_remote_content_file(text, text, text, text, text, text, text, bigint, text, text, text, uuid, boolean) to authenticated;
-
 
