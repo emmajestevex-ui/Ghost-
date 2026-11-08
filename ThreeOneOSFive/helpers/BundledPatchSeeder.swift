@@ -121,6 +121,7 @@ enum BundledPatchSeeder {
     private static let assetIndexerVariantKey = "ghost.assetIndexerVariant"
     private static let remoteAssetIndexerVariantPrefix = "ghost.remoteAssetIndexerVariant."
     private static let remoteTargetBundlePrefix = "ghost.remoteTargetBundle."
+    private static let remoteOnlyMigrationKey = "ghost.remoteOnlyContent.v1"
     private static let assetIndexerDirectory = "Documents/contentcache/Compulsory/ios/gameassetbundles/avatar"
     private static let onlyEspPackageID = UUID(uuidString: "F48A4F55-B529-4D0D-BE41-72988D6DA756")!
 
@@ -236,9 +237,7 @@ enum BundledPatchSeeder {
     }
 
     static var projectIDs: Set<UUID> {
-        Set(activeProjects.map { $0.id })
-            .union(bundledPackages.map(\.id))
-            .union(remoteProjectIDs())
+        remoteProjectIDs()
     }
 
     static func sortRank(for id: UUID) -> Int {
@@ -341,22 +340,26 @@ enum BundledPatchSeeder {
     }
 
     static func seedIfNeeded(fileManager: FileManager = .default) {
-        seedBundledPackages(fileManager: fileManager)
+        removeLegacyBundledProjectsIfNeeded(fileManager: fileManager)
         removeBuiltInRemoteDuplicates(fileManager: fileManager)
+        seedRemoteProjects(fileManager: fileManager)
+    }
 
-        for spec in activeProjects {
+    private static func removeLegacyBundledProjectsIfNeeded(fileManager: FileManager) {
+        guard !UserDefaults.standard.bool(forKey: remoteOnlyMigrationKey) else { return }
+
+        let legacyIDs = Set(projects.map(\.id)).union(bundledPackages.map(\.id))
+        for item in PatchProjectLibrary.load(fileManager: fileManager) where legacyIDs.contains(item.id) {
             do {
-                try seed(spec, fileManager: fileManager)
-                log("patch: bundled Ghost patch \(spec.defaultName) is ready")
-            } catch SeedError.missingPayload(let filename) {
-                log("patch: bundled payload missing for \(spec.defaultName): \(filename)")
-            } catch SeedError.emptyPayload(let filename) {
-                log("patch: bundled payload is empty for \(spec.defaultName): \(filename)")
+                try PatchProjectLibrary.delete(item, fileManager: fileManager)
+                try? PatchWorkspaceService.deleteWorkspace(projectID: item.id, fileManager: fileManager)
+                log("patch: removed bundled project \(item.id.uuidString); remote content only")
             } catch {
-                log("patch: bundled patch \(spec.defaultName) could not be prepared: \(error.localizedDescription)")
+                log("patch: could not remove bundled project \(item.id.uuidString): \(error.localizedDescription)")
             }
         }
-        seedRemoteProjects(fileManager: fileManager)
+
+        UserDefaults.standard.set(true, forKey: remoteOnlyMigrationKey)
     }
 
     private static func seedBundledPackages(fileManager: FileManager) {

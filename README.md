@@ -1,6 +1,6 @@
 # GHOST X HACKS
 
-Private client build with Supabase key activation and automatic bundled patches.
+Private client build with Supabase key activation and remote-only patches.
 
 ## What this build does
 
@@ -11,43 +11,17 @@ Private client build with Supabase key activation and automatic bundled patches.
 - Syncs published remote files from Supabase Storage into GHOST X HACKS' own app storage, using a versioned `target_path` so replacing the same route downloads only the changed file.
 - Downloads only changed files, verifies SHA-256, and rolls back local content if an update fails.
 - Adds a PC admin panel in `admin/` for uploading, replacing, disabling, deleting, and publishing content changes.
-- Creates the internal `Asset Indexer`, `Shaders`, and `144 fps` patches automatically after activation.
-- Shows the extra `TIO GHOST` patch only for the special key `TIO-GHOST927394HD`.
+- Shows only the patches and files published in the remote manifest after activation.
 - Lets the client use `Apply`, `Original`, and name editing only.
 - Hides Files, Cleaner, Wallpapers, patch creation, import, export, and editing.
 
-## Included private payloads
+## Remote-only content
 
-The bundled payload files live in:
-
-```text
-ThreeOneOSFive/BundledPatchPayloads/
-```
-
-Included names:
-
-```text
-assetindexer.H5ak1JM1Eck~2FxRcJrEp~2FMzeuqmY~3D
-shaders.HPt9DZviTSXL9hpGW9QNOMigNLA~3D
-com.dts.freefireth.plist
-assetindexer.tio-ghost927394hd
-```
-
-Patch targets:
-
-```text
-Asset Indexer:
-Documents/contentcache/Compulsory/ios/gameassetbundles/avatar/assetindexer.H5ak1JM1Eck~2FxRcJrEp~2FMzeuqmY~3D
-
-Shaders:
-Documents/contentcache/Optional/ios/gameassetbundles/shaders.HPt9DZviTSXL9hpGW9QNOMigNLA~3D
-
-144 fps:
-Library/Preferences/com.dts.freefireth.plist
-
-TIO GHOST, only for `TIO-GHOST927394HD`:
-Documents/contentcache/Compulsory/ios/gameassetbundles/avatar/assetindexer.H5ak1JM1Eck~2FxRcJrEp~2FMzeuqmY~3D
-```
+The IPA contains no base patch payloads. After activation, the app reads the
+published remote manifest and downloads only the files that have been released
+from the admin panel. Existing installations perform a one-time cleanup of the
+old bundled projects; content published remotely is preserved and recreated
+from the manifest.
 
 Run `supabase/licenses_setup.sql` before using the app. It disables old numeric keys like `GHOST-1`, adds secure key generation, and creates the admin RPC functions.
 

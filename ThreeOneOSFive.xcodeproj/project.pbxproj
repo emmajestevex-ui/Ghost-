@@ -58,7 +58,6 @@
 		3105F205 /* WallpaperLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105F106; };
 		3105F206 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105F108; };
 		3105K200 /* BundledPatchSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105K100; };
-		3105K201 /* BundledPatchPayloads in Resources */ = {isa = PBXBuildFile; fileRef = 3105K101; };
 		3105L200 /* RemoteContentSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105L100; };
 		3105L201 /* RemoteContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105L101; };
 		3105G200 /* ZIPArchiveWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105G100; };
@@ -152,7 +151,6 @@
 		3105I100 /* FilesTabControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTabControls.swift; sourceTree = "<group>"; };
 		3105I101 /* FilesTabSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTabSwitcherView.swift; sourceTree = "<group>"; };
 		3105K100 /* BundledPatchSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledPatchSeeder.swift; sourceTree = "<group>"; };
-		3105K101 /* BundledPatchPayloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BundledPatchPayloads; sourceTree = "<group>"; };
 		3105L100 /* RemoteContentSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteContentSyncService.swift; sourceTree = "<group>"; };
 		3105L101 /* RemoteContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteContentView.swift; sourceTree = "<group>"; };
 		3105A121 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				3105A406 /* kexploit */,
 				3105A120 /* Localizable.strings */,
 				3105A031 /* Assets.xcassets */,
-				3105K101 /* BundledPatchPayloads */,
 			);
 			path = ThreeOneOSFive;
 			sourceTree = "<group>";
@@ -363,7 +360,6 @@
 			files = (
 				3105A211,
 				3105A228,
-				3105K201,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
